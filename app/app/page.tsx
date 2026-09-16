@@ -366,9 +366,9 @@ export default function LandingPage() {
       <section className="px-4 py-20 border-t border-white/5">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 animate-fade-in-up">Hackathon Track</h2>
+            <h2 className="text-3xl font-bold mb-4 animate-fade-in-up">Hackathon Tracks</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 perspective">
             <TiltCard delay={1} className="bg-surface border border-brand/30 rounded-xl p-6 animate-border-shift">
               <div className="text-xs font-mono text-brand mb-3">MAIN TRACK</div>
               <h3 className="font-bold mb-2">Rello Core</h3>
@@ -380,20 +380,42 @@ export default function LandingPage() {
             </TiltCard>
             <TiltCard delay={2} className="bg-surface border border-data/30 rounded-xl p-6">
               <div className="text-xs font-mono text-data mb-3">PYTH BOUNTY</div>
-              <h3 className="font-bold mb-2">Pyth Core Integration</h3>
+              <h3 className="font-bold mb-2">Multi-Feed Comparison</h3>
               <p className="text-sm text-text-muted leading-relaxed">
-                Direct on-chain reads of Pyth price accounts for the critical
-                execution path. No API dependency. Permissionless. Hermes used
-                only for dashboard display.
+                Compare Equity.US, xStock, and Ondo feeds side-by-side.
+                Direct on-chain Pyth Core reads for the critical path.
               </p>
             </TiltCard>
             <TiltCard delay={3} className="bg-surface border border-warning/30 rounded-xl p-6">
               <div className="text-xs font-mono text-warning mb-3">METEORA DBC BOUNTY</div>
               <h3 className="font-bold mb-2">Equity-Tuned DBC Pool</h3>
               <p className="text-sm text-text-muted leading-relaxed">
-                Meteora DBC for corrective swaps with dynamic fees tuned for
-                equity market behavior. The agent executes swaps through DBC when
-                drift exceeds threshold.
+                Custom DBC pool config with asymmetric fees for equity-like assets.
+                Graduation rules to DAMM v2. Pool launch from the dashboard.
+              </p>
+            </TiltCard>
+            <TiltCard delay={4} className="bg-surface border border-healthy/30 rounded-xl p-6">
+              <div className="text-xs font-mono text-healthy mb-3">PRESTOCKS BOUNTY</div>
+              <h3 className="font-bold mb-2">Pre-IPO Integration</h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                PreStocks API integration showing tokenized pre-IPO stocks
+                alongside live equities. Compare pre-IPO pricing with on-chain data.
+              </p>
+            </TiltCard>
+            <TiltCard delay={5} className="bg-surface border border-critical/30 rounded-xl p-6">
+              <div className="text-xs font-mono text-critical mb-3">TESSERA BOUNTY</div>
+              <h3 className="font-bold mb-2">Tessera Tokens</h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                Tessera pre-IPO token data integrated into the dashboard.
+                One surface for all tokenized equity exposure.
+              </p>
+            </TiltCard>
+            <TiltCard delay={6} className="bg-surface border border-white/20 rounded-xl p-6">
+              <div className="text-xs font-mono text-text-muted mb-3">TRADING</div>
+              <h3 className="font-bold mb-2">24/7 Swap Interface</h3>
+              <p className="text-sm text-text-muted leading-relaxed">
+                Wallet-connected swap UI. Trade tokenized equities any time
+                via Meteora DBC pools. On-chain guard rails validate every swap.
               </p>
             </TiltCard>
           </div>
@@ -412,6 +434,8 @@ export default function LandingPage() {
               { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#ffffff" fillOpacity="0.1" /><text x="4" y="17" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">N</text></svg>, label: "Next.js" },
               { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#ffffff" fillOpacity="0.1" /><text x="3" y="17" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">Su</text></svg>, label: "Supabase" },
               { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#ffffff" fillOpacity="0.1" /><text x="4" y="17" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">A</text></svg>, label: "Anchor" },
+              { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#00D084" fillOpacity="0.2" /><text x="2" y="17" fill="#00D084" fontSize="10" fontWeight="bold" fontFamily="monospace">PS</text></svg>, label: "PreStocks" },
+              { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#FFB020" fillOpacity="0.2" /><text x="3" y="17" fill="#FFB020" fontSize="10" fontWeight="bold" fontFamily="monospace">Ts</text></svg>, label: "Tessera" },
             ].map((t, i) => (
               <div key={i} className="flex items-center gap-2 bg-background border border-white/10 rounded-lg px-4 py-2.5 card-3d animate-fade-in-up" style={{ animationDelay: `${i * 0.08}s` }}>
                 <span className="icon-3d">{t.logo}</span>
@@ -431,6 +455,9 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-6 text-sm text-text-muted">
             <a href="/dashboard" className="nav-link-3d">Dashboard</a>
+            <a href="/compare" className="nav-link-3d">Feeds</a>
+            <a href="/trade" className="nav-link-3d">Trade</a>
+            <a href="/pre-ipo" className="nav-link-3d">Pre-IPO</a>
             <a href="/activity" className="nav-link-3d">Activity</a>
             <a href="/developers" className="nav-link-3d">Developers</a>
           </div>

@@ -42,8 +42,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <div className="flex items-center gap-1 perspective">
                 {[
                   { href: "/dashboard", label: "Dashboard" },
+                  { href: "/compare", label: "Feeds" },
+                  { href: "/trade", label: "Trade" },
+                  { href: "/pools", label: "Pools" },
+                  { href: "/pre-ipo", label: "Pre-IPO" },
                   { href: "/activity", label: "Activity" },
-                  { href: "/developers", label: "Developers" },
+                  { href: "/developers", label: "API" },
                 ].map((link) => (
                   <a
                     key={link.href}
