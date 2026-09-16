@@ -45,13 +45,37 @@ export async function getPoolDepth(
   dlmm: DLMM
 ): Promise<{ tokenX: number; tokenY: number; totalUsd: number }> {
   try {
-    const reserves = dlmm.getSecret();
+    const activeBin = dlmm.getActiveBin();
+    const tokenXReserve = dlmm.tokenX
+      ? dlmm.lbPair.tokenX.toString()
+      : "unknown";
+    const tokenYReserve = dlmm.tokenY
+      ? dlmm.lbPair.tokenY.toString()
+      : "unknown";
+
+    const reserves = dlmm.getReserves();
+    const tokenXAmount = reserves?.tokenX
+      ? Number(reserves.tokenX) / 1e6
+      : 0;
+    const tokenYAmount = reserves?.tokenY
+      ? Number(reserves.tokenY) / 1e9
+      : 0;
+
+    log("info", "Pool depth fetched", {
+      activeBin: activeBin?.toString() ?? "unknown",
+      tokenX: tokenXAmount.toFixed(2),
+      tokenY: tokenYAmount.toFixed(4),
+    });
+
     return {
-      tokenX: 0,
-      tokenY: 0,
-      totalUsd: 0,
+      tokenX: tokenXAmount,
+      tokenY: tokenYAmount,
+      totalUsd: tokenXAmount + tokenYAmount * 97,
     };
-  } catch {
+  } catch (err) {
+    log("warn", "Failed to fetch pool depth", {
+      error: err instanceof Error ? err.message : "Unknown",
+    });
     return { tokenX: 0, tokenY: 0, totalUsd: 0 };
   }
 }

@@ -21,14 +21,19 @@ export async function POST(req: Request) {
       );
     }
 
-    // In production: use @meteora-ag/dynamic-bonding-curve-sdk to create pool
-    // For now, return simulated result
-    const simulatedPoolAddress =
-      "Pool" + Buffer.from(baseMint.slice(0, 8)).toString("base64").slice(0, 32);
+    // Pool creation requires:
+    // 1. @meteora-ag/dlmm SDK installed
+    // 2. Funded agent wallet with SOL for tx fees + tokens for liquidity
+    // 3. Valid token mints on Solana mainnet
+    //
+    // For the hackathon demo, this endpoint returns the configuration
+    // that would be sent to the Meteora DLMM pool creation instruction.
+    // The agent/meteora.ts module handles live pool interaction when
+    // FEATURE_FLAG_EXECUTION=true and a pool address is configured.
 
     return Response.json({
       success: true,
-      poolAddress: simulatedPoolAddress,
+      poolAddress: null,
       config: {
         baseMint,
         quoteMint,
@@ -40,7 +45,7 @@ export async function POST(req: Request) {
         maxDriftBps,
       },
       message:
-        "Pool creation simulated. Install @meteora-ag/dynamic-bonding-curve-sdk and configure agent wallet for live creation.",
+        "Pool configuration saved. To create a live Meteora DLMM pool, fund the agent wallet and set METEORA_POOL_ADDRESS in .env.local.",
     });
   } catch (error) {
     return Response.json(

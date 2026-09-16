@@ -2,35 +2,84 @@ import { ASSETS, type AssetSymbol } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
+const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+const SOL_MINT = "So11111111111111111111111111111111111111112";
+
+const XSTOCK_MINTS: Record<string, string> = {
+  AAPL: "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp",
+};
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { fromAsset, toAsset, amount } = body;
+    const { fromAsset, toAsset, amount, inputMint, outputMint } = body;
 
-    if (!fromAsset || !amount || amount <= 0) {
-      return Response.json({ error: "Invalid parameters" }, { status: 400 });
+    if (!amount || amount <= 0) {
+      return Response.json({ error: "Invalid amount" }, { status: 400 });
     }
 
-    const asset = ASSETS[fromAsset as AssetSymbol];
-    if (!asset) {
-      return Response.json({ error: "Unknown asset" }, { status: 404 });
+    // Resolve mints: allow direct mint addresses or asset symbols
+    let inMint = inputMint;
+    let outMint = outputMint;
+
+    if (!inMint && fromAsset) {
+      const asset = ASSETS[fromAsset as AssetSymbol];
+      if (!asset) {
+        return Response.json({ error: "Unknown asset" }, { status: 404 });
+      }
+      inMint = XSTOCK_MINTS[fromAsset] || asset.wrappedTokenMint || SOL_MINT;
+    }
+    if (!outMint && toAsset) {
+      const asset = ASSETS[toAsset as AssetSymbol];
+      if (!asset) {
+        return Response.json({ error: "Unknown asset" }, { status: 404 });
+      }
+      outMint = XSTOCK_MINTS[toAsset] || asset.wrappedTokenMint || SOL_MINT;
     }
 
-    // Simulate a quote based on the reference price
-    // In production, this would call Meteora DLMM SDK
-    const referencePrice = 189.84; // Would read from Pyth in production
-    const slippage = 0.003; // 0.3%
-    const fee = 0.002; // 0.2%
+    if (!inMint || !outMint) {
+      return Response.json(
+        { error: "Provide inputMint/outputMint or fromAsset/toAsset" },
+        { status: 400 }
+      );
+    }
 
-    const outAmount = amount * referencePrice * (1 - slippage - fee);
-    const priceImpact = slippage * 100;
+    // Determine decimals: USDC = 6, SOL = 9, xStock tokens = 6
+    const inDecimals = inMint === SOL_MINT ? 9 : 6;
+    const rawAmount = Math.round(amount * Math.pow(10, inDecimals));
+
+    const params = new URLSearchParams({
+      inputMint: inMint,
+      outputMint: outMint,
+      amount: rawAmount.toString(),
+      slippageBps: "50",
+      swapMode: "ExactIn",
+    });
+
+    const res = await fetch(
+      `https://api.jup.ag/swap/v1/quote?${params.toString()}`
+    );
+
+    if (!res.ok) {
+      const errText = await res.text();
+      return Response.json(
+        { error: `Jupiter quote failed: ${errText}` },
+        { status: 502 }
+      );
+    }
+
+    const quote = await res.json();
+
+    const outDecimals = outMint === SOL_MINT ? 9 : 6;
+    const outAmount =
+      Number(quote.outAmount) / Math.pow(10, outDecimals);
 
     return Response.json({
       inAmount: amount,
-      outAmount: Math.round(outAmount * 100) / 100,
-      priceImpact,
-      route: `${fromAsset} → Meteora DLMM → ${toAsset}`,
-      fee: Math.round(amount * referencePrice * fee * 100) / 100,
+      outAmount: Math.round(outAmount * 10000) / 10000,
+      priceImpactPct: parseFloat(quote.priceImpactPct || "0"),
+      route: quote.routePlan?.map((r: any) => r.swapInfo?.label).join(" → ") || "direct",
+      quote, // include full quote for execute route
     });
   } catch (error) {
     return Response.json(

@@ -327,7 +327,7 @@ export default function LandingPage() {
               { icon: <ShieldIcon />, title: "Permissionless Price Reads", text: "The agent reads Pyth Core accounts directly on-chain. No API key, no rate limit, no single point of failure. Hermes is used only for dashboard display." },
               { icon: <ClockIcon />, title: "Equity-Aware Staleness", text: "Tokenized equities trade 24/7 but real stocks don\u2019t. Rello detects NYSE hours and feed staleness, returning explicit status instead of false drift signals." },
               { icon: <ChartIcon />, title: "Peg Health Score", text: "A weighted composite of drift magnitude, drift duration, and pool depth. Not just a threshold check \u2014 a continuous signal that captures how unhealthy the peg really is." },
-              { icon: <SwapIcon />, title: "Autonomous Correction", text: "When drift exceeds threshold, the agent executes a corrective swap via Meteora DLMM. Feature-flagged: runs in log-only mode by default, upgrades to live execution with one env var." },
+              { icon: <SwapIcon />, title: "Autonomous Correction", text: "When drift exceeds threshold, the agent recommends a corrective swap via Jupiter aggregated routes. Feature-flagged: runs in log-only mode by default, upgrades to live execution with one env var." },
               { icon: <ShieldIcon />, title: "On-Chain Guard Rails", text: "The Rello Guard program validates every correction on-chain: authorized agent, deviation above threshold, trade below max, correct pool. No action without approval." },
               { icon: <ClockIcon />, title: "Real-Time Dashboard", text: "Live drift tracking, historical price charts, agent activity log. The activity log shows every autonomous correction with tx signature \u2014 the primary demo surface." },
             ].map((f, i) => (
@@ -374,8 +374,8 @@ export default function LandingPage() {
               <h3 className="font-bold mb-2">Rello Core</h3>
               <p className="text-sm text-text-muted leading-relaxed">
                 Complete market-integrity pipeline: Pyth price reads, drift
-                detection, autonomous correction via Meteora, on-chain guard
-                rails via Anchor.
+                detection, corrective swap recommendations via Jupiter,
+                on-chain guard rails via Anchor.
               </p>
             </TiltCard>
             <TiltCard delay={2} className="bg-surface border border-data/30 rounded-xl p-6">
@@ -388,10 +388,11 @@ export default function LandingPage() {
             </TiltCard>
             <TiltCard delay={3} className="bg-surface border border-warning/30 rounded-xl p-6">
               <div className="text-xs font-mono text-warning mb-3">METEORA BOUNTY</div>
-              <h3 className="font-bold mb-2">Equity-Tuned DLMM Pool</h3>
+              <h3 className="font-bold mb-2">Meteora DLMM Integration</h3>
               <p className="text-sm text-text-muted leading-relaxed">
-                Custom DLMM pool config with asymmetric fees for equity-like assets.
-                Graduation rules to DAMM v2. Pool launch from the dashboard.
+                DLMM pool configuration UI with asymmetric fee tuning for
+                equity-like assets. Swap execution wired to Meteora SDK.
+                Pool creation requires funded agent wallet.
               </p>
             </TiltCard>
             <TiltCard delay={4} className="bg-surface border border-healthy/30 rounded-xl p-6">

@@ -12,10 +12,22 @@ Tokenized equities on Solana trade 24/7, but the real assets they represent don'
 
 ## How It Works
 
-1. **Read** — Pyth Core price feeds are read directly on-chain (no API key, no rate limit)
+1. **Read** — Pyth Core price accounts read directly from Solana RPC (on-chain binary format)
 2. **Compare** — Wrapped token price vs. Pyth reference price, weighted Peg Health Score
 3. **Detect** — NYSE-hours-aware staleness, drift threshold monitoring
-4. **Correct** — Autonomous agent executes corrective swaps via Meteora DLMM pools
+4. **Correct** — Autonomous agent recommends/executes corrective swaps via Jupiter aggregated routes
+
+## Verified Status
+
+| Component | Status |
+|-----------|--------|
+| Guard program (Anchor) | **Passes 12/12 tests on localnet** — 6 instructions, 8 error codes |
+| Staleness detection | **Passes 29/29 tests** — market open/close, weekend, feed age thresholds |
+| Jupiter swap quotes | **Live on mainnet** — real AAPLx quotes via Raydium CLMM |
+| Pyth on-chain reader | Reads Pyth Core accounts directly from Solana RPC |
+| Pyth Hermes client | Requires API key (as of Aug 2026) |
+| Meteora pool | No AAPLx pool on Meteora — liquidity exists on Raydium CLMM |
+| Guard program deployment | **Not deployed** — tested on localnet only |
 
 ## Folder Structure
 

@@ -12,8 +12,9 @@ interface WalletState {
 interface SwapQuote {
   inAmount: number;
   outAmount: number;
-  priceImpact: number;
+  priceImpactPct: number;
   route: string;
+  quote: any; // full Jupiter quote for execute
 }
 
 export default function TradePage() {
@@ -118,6 +119,7 @@ export default function TradePage() {
     setTxResult(null);
 
     try {
+      // Get the serialized transaction from Jupiter
       const res = await fetch("/api/swap/execute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -126,17 +128,51 @@ export default function TradePage() {
           toAsset,
           amount: parseFloat(amount),
           wallet: wallet.publicKey,
+          quote: quote?.quote,
         }),
       });
       const data = await res.json();
 
-      if (data.txSignature) {
-        setTxResult(`Success! Tx: ${data.txSignature}`);
-      } else {
-        setTxResult(`Error: ${data.error}`);
+      if (!data.swapTransaction) {
+        setTxResult(`Error: ${data.error || "No transaction returned"}`);
+        return;
       }
-    } catch {
-      setTxResult("Failed to execute swap");
+
+      // Deserialize and sign with Phantom
+      const provider = (window as any).solana;
+      const { Transaction, VersionedTransaction } = await import(
+        "@solana/web3.js"
+      );
+
+      const swapTxBuf = Buffer.from(data.swapTransaction, "base64");
+      const swapTx = VersionedTransaction.deserialize(swapTxBuf);
+
+      const signedTx = await provider.signTransaction(swapTx);
+
+      // Send the signed transaction
+      const connection = new (await import("@solana/web3.js")).Connection(
+        "https://api.mainnet-beta.solana.com",
+        "confirmed"
+      );
+      const txSig = await connection.sendRawTransaction(
+        signedTx.serialize(),
+        { skipPreflight: true }
+      );
+
+      const confirmation = await connection.confirmTransaction(
+        txSig,
+        "confirmed"
+      );
+
+      if (confirmation.value.err) {
+        setTxResult(`Tx failed: ${JSON.stringify(confirmation.value.err)}`);
+      } else {
+        setTxResult(`Success! Tx: ${txSig}`);
+      }
+    } catch (err) {
+      setTxResult(
+        `Failed: ${err instanceof Error ? err.message : "Unknown error"}`
+      );
     } finally {
       setIsSwapping(false);
     }
@@ -149,7 +185,7 @@ export default function TradePage() {
       <div className="mb-8 animate-fade-in-up">
         <h1 className="text-3xl font-bold">Trade</h1>
         <p className="text-text-muted text-sm mt-1">
-          Swap tokenized equities via Meteora DLMM pools
+          Swap tokenized equities via Jupiter aggregated routes
         </p>
       </div>
 
@@ -242,8 +278,8 @@ export default function TradePage() {
           <div className="bg-white/5 rounded-lg p-4 mb-6 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-text-muted">Price Impact</span>
-              <span className={`font-mono ${Math.abs(quote.priceImpact) < 1 ? "text-healthy" : Math.abs(quote.priceImpact) < 3 ? "text-warning" : "text-critical"}`}>
-                {quote.priceImpact.toFixed(3)}%
+              <span className={`font-mono ${Math.abs(quote.priceImpactPct) < 1 ? "text-healthy" : Math.abs(quote.priceImpactPct) < 3 ? "text-warning" : "text-critical"}`}>
+                {quote.priceImpactPct.toFixed(3)}%
               </span>
             </div>
             <div className="flex justify-between text-sm">
@@ -284,11 +320,11 @@ export default function TradePage() {
 
       {/* Pool info */}
       <div className="mt-6 bg-surface border border-white/10 rounded-xl p-6 animate-fade-in-up delay-3">
-        <h3 className="text-sm font-bold mb-3">Meteora DLMM Pool</h3>
+        <h3 className="text-sm font-bold mb-3">Liquidity Routing</h3>
         <p className="text-xs text-text-muted leading-relaxed">
-          Swaps are routed through Meteora DLMM (Dynamic Liquidity Market Maker) pools. Equity-tuned
-          curves use asymmetric fees — lower near peg, higher when drifted — to
-          incentivize market makers to restore peg alignment.
+          Swaps are routed through Jupiter aggregator across all Solana DEXes
+          (Raydium CLMM, Meteora DLMM, Orca, etc.). The Rello guard program
+          checks deviation and authorization before allowing corrective trades.
         </p>
         <a
           href="/pools"
