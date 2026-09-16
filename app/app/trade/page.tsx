@@ -149,7 +149,7 @@ export default function TradePage() {
       <div className="mb-8 animate-fade-in-up">
         <h1 className="text-3xl font-bold">Trade</h1>
         <p className="text-text-muted text-sm mt-1">
-          Swap tokenized equities via Meteora DBC pools
+          Swap tokenized equities via Meteora DLMM pools
         </p>
       </div>
 
@@ -284,9 +284,9 @@ export default function TradePage() {
 
       {/* Pool info */}
       <div className="mt-6 bg-surface border border-white/10 rounded-xl p-6 animate-fade-in-up delay-3">
-        <h3 className="text-sm font-bold mb-3">Meteora DBC Pool</h3>
+        <h3 className="text-sm font-bold mb-3">Meteora DLMM Pool</h3>
         <p className="text-xs text-text-muted leading-relaxed">
-          Swaps are routed through Meteora Dynamic Bonding Curve pools. Equity-tuned
+          Swaps are routed through Meteora DLMM (Dynamic Liquidity Market Maker) pools. Equity-tuned
           curves use asymmetric fees — lower near peg, higher when drifted — to
           incentivize market makers to restore peg alignment.
         </p>

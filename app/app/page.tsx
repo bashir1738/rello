@@ -148,7 +148,7 @@ function FlowDiagram() {
       <polygon points="610,96 618,100 610,104" fill="#FFB020" />
 
       <rect x="618" y="60" width="140" height="80" rx="8" fill="#131826" stroke="#FF5C5C" strokeWidth="1.5" />
-      <text x="688" y="90" textAnchor="middle" fill="#FF5C5C" fontSize="11" fontFamily="monospace" fontWeight="600">METEORA DBC</text>
+      <text x="688" y="90" textAnchor="middle" fill="#FF5C5C" fontSize="11" fontFamily="monospace" fontWeight="600">METEORA DLMM</text>
       <text x="688" y="108" textAnchor="middle" fill="#8B93A7" fontSize="9" fontFamily="monospace">corrective swap</text>
       <text x="688" y="122" textAnchor="middle" fill="#00D084" fontSize="10" fontFamily="monospace" fontWeight="600">peg restored</text>
 
@@ -293,7 +293,7 @@ export default function LandingPage() {
               <p className="text-sm text-text-muted leading-relaxed">
                 The agent monitors drift continuously. When it crosses a
                 threshold and the reference is live, it executes a corrective
-                swap via Meteora DBC — or recommends the action in log-only
+                swap via Meteora DLMM — or recommends the action in log-only
                 mode.
               </p>
             </TiltCard>
@@ -327,7 +327,7 @@ export default function LandingPage() {
               { icon: <ShieldIcon />, title: "Permissionless Price Reads", text: "The agent reads Pyth Core accounts directly on-chain. No API key, no rate limit, no single point of failure. Hermes is used only for dashboard display." },
               { icon: <ClockIcon />, title: "Equity-Aware Staleness", text: "Tokenized equities trade 24/7 but real stocks don\u2019t. Rello detects NYSE hours and feed staleness, returning explicit status instead of false drift signals." },
               { icon: <ChartIcon />, title: "Peg Health Score", text: "A weighted composite of drift magnitude, drift duration, and pool depth. Not just a threshold check \u2014 a continuous signal that captures how unhealthy the peg really is." },
-              { icon: <SwapIcon />, title: "Autonomous Correction", text: "When drift exceeds threshold, the agent executes a corrective swap via Meteora DBC. Feature-flagged: runs in log-only mode by default, upgrades to live execution with one env var." },
+              { icon: <SwapIcon />, title: "Autonomous Correction", text: "When drift exceeds threshold, the agent executes a corrective swap via Meteora DLMM. Feature-flagged: runs in log-only mode by default, upgrades to live execution with one env var." },
               { icon: <ShieldIcon />, title: "On-Chain Guard Rails", text: "The Rello Guard program validates every correction on-chain: authorized agent, deviation above threshold, trade below max, correct pool. No action without approval." },
               { icon: <ClockIcon />, title: "Real-Time Dashboard", text: "Live drift tracking, historical price charts, agent activity log. The activity log shows every autonomous correction with tx signature \u2014 the primary demo surface." },
             ].map((f, i) => (
@@ -387,10 +387,10 @@ export default function LandingPage() {
               </p>
             </TiltCard>
             <TiltCard delay={3} className="bg-surface border border-warning/30 rounded-xl p-6">
-              <div className="text-xs font-mono text-warning mb-3">METEORA DBC BOUNTY</div>
-              <h3 className="font-bold mb-2">Equity-Tuned DBC Pool</h3>
+              <div className="text-xs font-mono text-warning mb-3">METEORA BOUNTY</div>
+              <h3 className="font-bold mb-2">Equity-Tuned DLMM Pool</h3>
               <p className="text-sm text-text-muted leading-relaxed">
-                Custom DBC pool config with asymmetric fees for equity-like assets.
+                Custom DLMM pool config with asymmetric fees for equity-like assets.
                 Graduation rules to DAMM v2. Pool launch from the dashboard.
               </p>
             </TiltCard>
@@ -415,7 +415,7 @@ export default function LandingPage() {
               <h3 className="font-bold mb-2">24/7 Swap Interface</h3>
               <p className="text-sm text-text-muted leading-relaxed">
                 Wallet-connected swap UI. Trade tokenized equities any time
-                via Meteora DBC pools. On-chain guard rails validate every swap.
+                via Meteora DLMM pools. On-chain guard rails validate every swap.
               </p>
             </TiltCard>
           </div>
@@ -429,7 +429,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-center gap-6 flex-wrap perspective">
             {[
               { logo: <PythLogo />, label: "Pyth Network" },
-              { logo: <MeteoraLogo />, label: "Meteora DBC" },
+              { logo: <MeteoraLogo />, label: "Meteora DLMM" },
               { logo: <SolanaLogo />, label: "Solana" },
               { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#ffffff" fillOpacity="0.1" /><text x="4" y="17" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">N</text></svg>, label: "Next.js" },
               { logo: <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"><rect width="24" height="24" rx="6" fill="#ffffff" fillOpacity="0.1" /><text x="3" y="17" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">Su</text></svg>, label: "Supabase" },

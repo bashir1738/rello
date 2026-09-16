@@ -15,7 +15,7 @@ Tokenized equities on Solana trade 24/7, but the real assets they represent don'
 1. **Read** — Pyth Core price feeds are read directly on-chain (no API key, no rate limit)
 2. **Compare** — Wrapped token price vs. Pyth reference price, weighted Peg Health Score
 3. **Detect** — NYSE-hours-aware staleness, drift threshold monitoring
-4. **Correct** — Autonomous agent executes corrective swaps via Meteora DBC pools
+4. **Correct** — Autonomous agent executes corrective swaps via Meteora DLMM pools
 
 ## Folder Structure
 
@@ -103,14 +103,14 @@ FEATURE_FLAG_EXECUTION=false
 | Mode | `FEATURE_FLAG_EXECUTION` | Behavior |
 |------|--------------------------|----------|
 | **Log-only** (default) | `false` | Detects drift, logs recommendations, fires webhooks |
-| **Live** | `true` | Executes corrective swaps via Meteora DBC on mainnet |
+| **Live** | `true` | Executes corrective swaps via Meteora DLMM on mainnet |
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
 | Price feeds | Pyth Network (Core on-chain + Hermes) |
-| Swaps | Meteora Dynamic Bonding Curve |
+| Swaps | Meteora DLMM (Dynamic Liquidity Market Maker) |
 | Chain | Solana |
 | Frontend | Next.js 16, React 19, Tailwind CSS v4 |
 | Database | Supabase |

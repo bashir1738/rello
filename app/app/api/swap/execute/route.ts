@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // In production: load agent wallet, connect to Meteora DBC, execute swap
+    // In production: load agent wallet, connect to Meteora DLMM, execute swap
     // For now, return a simulated result
     return Response.json({
       success: true,

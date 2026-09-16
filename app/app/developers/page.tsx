@@ -93,9 +93,9 @@ export default function DevelopersPage() {
             <EndpointCard method="GET" path="/api/assets" desc="List all tracked assets with current health scores and drift data." delay={100} />
             <EndpointCard method="GET" path="/api/assets/[symbol]" desc="Get detailed data for a specific asset including price history." delay={150} />
             <EndpointCard method="GET" path="/api/assets/[symbol]/history?hours=24" desc="Get historical snapshots for charting. Params: hours (default 24), limit (default 200)." delay={200} />
-            <EndpointCard method="POST" path="/api/swap/quote" desc="Get a swap quote for tokenized equity pairs via Meteora DBC." delay={225} />
-            <EndpointCard method="POST" path="/api/swap/execute" desc="Execute a swap through Meteora DBC. Requires wallet signature." delay={250} />
-            <EndpointCard method="POST" path="/api/pools/create" desc="Create a new Meteora DBC pool with equity-tuned curve config." delay={275} />
+            <EndpointCard method="POST" path="/api/swap/quote" desc="Get a swap quote for tokenized equity pairs via Meteora DLMM." delay={225} />
+            <EndpointCard method="POST" path="/api/swap/execute" desc="Execute a swap through Meteora DLMM. Requires wallet signature." delay={250} />
+            <EndpointCard method="POST" path="/api/pools/create" desc="Create a new Meteora DLMM pool with equity-tuned config." delay={275} />
             <EndpointCard method="POST" path="/api/webhook" desc="Receive alert payloads and forward to Discord/Slack webhooks." delay={300} />
             <EndpointCard method="GET" path="/api/cron/snapshot" desc="Trigger a snapshot capture for all tracked assets. Call via cron or manually." delay={350} />
           </div>
@@ -148,7 +148,7 @@ Rello Agent (standalone Node service)
     │     validates rules on-chain
     │
     ▼
-Meteora DBC Pool → Corrective swap → DAMM v2`}
+Meteora DLMM Pool → Corrective swap → SOL`}
         />
       </div>
     </div>

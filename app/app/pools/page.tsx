@@ -88,9 +88,9 @@ export default function PoolsPage() {
           </svg>
           Dashboard
         </Link>
-        <h1 className="text-3xl font-bold">Meteora DBC Pool Config</h1>
+        <h1 className="text-3xl font-bold">Meteora DLMM Pool Config</h1>
         <p className="text-text-muted text-sm mt-1">
-          Launch and configure Dynamic Bonding Curve pools for tokenized equities
+          Configure Meteora DLMM pools for tokenized equity trading pairs
         </p>
       </div>
 
@@ -265,7 +265,7 @@ export default function PoolsPage() {
             disabled={isCreating || !config.baseMint}
             className="w-full btn-3d bg-brand text-white rounded-xl py-3.5 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isCreating ? "Creating Pool..." : "Launch DBC Pool"}
+            {isCreating ? "Creating Pool..." : "Launch DLMM Pool"}
           </button>
 
           {result && (
@@ -304,10 +304,6 @@ export default function PoolsPage() {
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Graduation</span>
-                <span className="font-mono">${config.graduationThreshold.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-sm">
                 <span className="text-text-muted">Max Drift</span>
                 <span className="font-mono">{config.maxDriftBps} bps</span>
               </div>
@@ -315,15 +311,12 @@ export default function PoolsPage() {
 
             <div className="mt-6 p-3 bg-white/5 rounded-lg">
               <div className="text-xs text-text-muted font-mono mb-2">
-                Graduation Rule
+                DLMM Configuration
               </div>
               <p className="text-xs text-text-muted leading-relaxed">
-                When pool liquidity reaches{" "}
-                <span className="text-data font-mono">
-                  ${config.graduationThreshold.toLocaleString()}
-                </span>
-                , the pool automatically migrates to Meteora DAMM v2 for
-                concentrated liquidity.
+                Meteora DLMM uses discrete price bins for concentrated liquidity.
+                Equity-tuned pools set tighter bins near peg and wider bins
+                away from it, optimizing capital efficiency for stock-like assets.
               </p>
             </div>
           </div>

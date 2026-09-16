@@ -37,7 +37,7 @@ Seeds: `["asset_config", asset_pubkey]`
 | `max_trade_amount` | `u64` | Max tokens per correction |
 | `max_slippage_bps` | `u16` | Max allowed slippage |
 | `authorized_agent` | `Pubkey` | Only this key can call `check_and_authorize` |
-| `pool_address` | `Pubkey` | Meteora DBC pool |
+| `pool_address` | `Pubkey` | Meteora DLMM pool |
 | `active` | `bool` | Whether the config is active |
 
 ### CorrectionEvent (Emitted)

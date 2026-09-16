@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       inAmount: amount,
       outAmount: Math.round(outAmount * 100) / 100,
       priceImpact,
-      route: `${fromAsset} → Meteora DBC → ${toAsset}`,
+      route: `${fromAsset} → Meteora DLMM → ${toAsset}`,
       fee: Math.round(amount * referencePrice * fee * 100) / 100,
     });
   } catch (error) {

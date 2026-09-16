@@ -1,6 +1,6 @@
 # Rello Agent
 
-Standalone Node.js service that monitors tokenized equity prices and executes corrective swaps via Meteora DBC.
+Standalone Node.js service that monitors tokenized equity prices and executes corrective swaps via Meteora DLMM.
 
 ## Overview
 
@@ -46,7 +46,7 @@ cp .env.example .env
 # Required
 ENGINE_BASE_URL=http://localhost:3000      # Rello dashboard URL
 AGENT_WALLET_PRIVATE_KEY=[1,2,3,...]       # Solana keypair (JSON array)
-METEORA_POOL_ADDRESS=...                   # Meteora DBC pool address
+METEORA_POOL_ADDRESS=...                   # Meteora DLMM pool address
 
 # Optional
 FEATURE_FLAG_EXECUTION=false               # true = live swaps, false = log only
@@ -76,7 +76,7 @@ pnpm start
 
 ## Dependencies
 
-- `@meteora-ag/dlmm` — Meteora Dynamic Bonding Curve SDK
+- `@meteora-ag/dlmm` — Meteora DLMM (Dynamic Liquidity Market Maker) SDK
 - `@solana/web3.js` — Solana RPC client
 - `bn.js` — Big number arithmetic
 - `dotenv` — Environment variable loading
