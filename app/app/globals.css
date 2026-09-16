@@ -1,26 +1,258 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0B0F1A;
+  --surface: #131826;
+  --brand: #6C5DFF;
+  --data: #00E5C7;
+  --healthy: #00D084;
+  --warning: #FFB020;
+  --critical: #FF5C5C;
+  --text: #F2F4F8;
+  --text-muted: #8B93A7;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-data: var(--data);
+  --color-healthy: var(--healthy);
+  --color-warning: var(--warning);
+  --color-critical: var(--critical);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+}
+
+/* ── 3D perspective container ── */
+.perspective {
+  perspective: 1200px;
+}
+
+/* ── Card 3D tilt on hover ── */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card-3d:hover {
+  transform: rotateY(-2deg) rotateX(2deg) translateZ(8px);
+  box-shadow: 8px 8px 0 rgba(108, 93, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Float animation ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-8px) rotateX(1deg); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ── Float with delay ── */
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out 1s infinite;
+}
+
+/* ── Fade in up ── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotateX(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Staggered delays ── */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* ── Rotate Y entrance ── */
+@keyframes rotate-in-y {
+  from {
+    opacity: 0;
+    transform: rotateY(-12deg) translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) translateX(0);
+  }
+}
+.animate-rotate-in-y {
+  animation: rotate-in-y 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Scale in with depth ── */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateZ(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Slide in from left ── */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) rotateY(6deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Slide in from right ── */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px) rotateY(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Pulse glow (subtle, no blur) ── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(108, 93, 255, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(108, 93, 255, 0.1); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ── Border rotate (for cards) ── */
+@keyframes border-shift {
+  0% { border-color: rgba(108, 93, 255, 0.2); }
+  33% { border-color: rgba(0, 229, 199, 0.2); }
+  66% { border-color: rgba(255, 176, 32, 0.2); }
+  100% { border-color: rgba(108, 93, 255, 0.2); }
+}
+.animate-border-shift {
+  animation: border-shift 6s ease-in-out infinite;
+}
+
+/* ── Ticker scroll ── */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+/* ── Card tilt (mouse follow - applied via JS) ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+/* ── Nav link 3D ── */
+.nav-link-3d {
+  transition: transform 0.2s ease, color 0.2s ease;
+  transform-style: preserve-3d;
+}
+.nav-link-3d:hover {
+  transform: translateZ(4px) translateY(-1px);
+  color: var(--text);
+}
+
+/* ── Button 3D press ── */
+.btn-3d {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transform-style: preserve-3d;
+}
+.btn-3d:hover {
+  transform: translateY(-2px) translateZ(4px);
+  box-shadow: 0 4px 12px rgba(108, 93, 255, 0.25);
+}
+.btn-3d:active {
+  transform: translateY(1px) translateZ(-2px);
+  box-shadow: 0 1px 4px rgba(108, 93, 255, 0.15);
+}
+
+/* ── Icon 3D spin on hover ── */
+.icon-3d {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+}
+.group:hover .icon-3d {
+  transform: rotateY(15deg) rotateX(-10deg) scale(1.1);
+}
+
+/* ── Flow arrow pulse ── */
+@keyframes flow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.animate-flow-pulse {
+  animation: flow-pulse 2s ease-in-out infinite;
+}
+
+/* ── Rotate slow ── */
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* ── Shimmer line ── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-shimmer {
+  overflow: hidden;
+}
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  animation: shimmer 3s ease-in-out infinite;
 }
