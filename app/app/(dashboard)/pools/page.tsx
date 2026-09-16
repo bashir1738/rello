@@ -74,7 +74,7 @@ export default function PoolsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
       <div className="mb-8 animate-fade-in-up">
         <Link
           href="/dashboard"
@@ -115,7 +115,7 @@ export default function PoolsPage() {
                     className={`p-4 rounded-lg border text-left transition-all ${
                       config.curveType === key
                         ? "border-brand bg-brand/10"
-                        : "border-white/10 bg-white/5 hover:border-white/20"
+                        : "border-white/10 bg-white/5 hover:border-white/10"
                     }`}
                   >
                     <div className="text-sm font-bold mb-1">{p.label}</div>

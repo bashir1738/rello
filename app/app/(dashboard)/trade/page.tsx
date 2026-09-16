@@ -181,7 +181,7 @@ export default function TradePage() {
   const assets = Object.values(ASSETS);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
       <div className="mb-8 animate-fade-in-up">
         <h1 className="text-3xl font-bold">Trade</h1>
         <p className="text-text-muted text-sm mt-1">
@@ -294,7 +294,7 @@ export default function TradePage() {
           <button
             onClick={getQuote}
             disabled={isQuoting || !amount || parseFloat(amount) <= 0}
-            className="flex-1 btn-3d border border-white/20 rounded-xl py-3 font-medium text-sm disabled:opacity-50"
+            className="flex-1 btn-3d border border-white/10 rounded-xl py-3 font-medium text-sm disabled:opacity-50"
           >
             {isQuoting ? "Getting Quote..." : "Get Quote"}
           </button>

@@ -25,7 +25,7 @@ interface HistoryPoint {
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-surface border border-white/10 rounded-lg px-4 py-3 shadow-xl" style={{ transform: "perspective(600px) rotateY(-2deg)", transformOrigin: "right center" }}>
+    <div className="bg-surface border border-black/5 rounded-lg px-4 py-3 shadow-xl" style={{ transform: "perspective(600px) rotateY(-2deg)", transformOrigin: "right center" }}>
       <p className="text-xs text-text-muted font-mono mb-2">{label}</p>
       {payload.map((p: any) => (
         <div key={p.name} className="flex items-center gap-2 text-sm">
@@ -81,12 +81,12 @@ export default function PriceChart({ data }: { data: HistoryPoint[] }) {
         <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="gradRef" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#6C5DFF" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#6C5DFF" stopOpacity={0} />
+              <stop offset="0%" stopColor="#0071e3" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#0071e3" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="gradWrap" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#00E5C7" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#00E5C7" stopOpacity={0} />
+              <stop offset="0%" stopColor="#34c759" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#34c759" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
@@ -111,11 +111,11 @@ export default function PriceChart({ data }: { data: HistoryPoint[] }) {
           <Area
             type="monotone"
             dataKey="referencePrice"
-            stroke="#6C5DFF"
+            stroke="#0071e3"
             strokeWidth={2}
             fill="url(#gradRef)"
             dot={false}
-            activeDot={{ r: 4, fill: "#6C5DFF", stroke: "#131826", strokeWidth: 2 }}
+            activeDot={{ r: 4, fill: "#0071e3", stroke: "#131826", strokeWidth: 2 }}
             name="Reference"
             animationDuration={1200}
             animationEasing="ease-out"
@@ -123,11 +123,11 @@ export default function PriceChart({ data }: { data: HistoryPoint[] }) {
           <Area
             type="monotone"
             dataKey="wrappedPrice"
-            stroke="#00E5C7"
+            stroke="#34c759"
             strokeWidth={2}
             fill="url(#gradWrap)"
             dot={false}
-            activeDot={{ r: 4, fill: "#00E5C7", stroke: "#131826", strokeWidth: 2 }}
+            activeDot={{ r: 4, fill: "#34c759", stroke: "#131826", strokeWidth: 2 }}
             name="Wrapped"
             animationDuration={1200}
             animationEasing="ease-out"

@@ -5,8 +5,8 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 function PreStockCard({ stock }: { stock: PreStock }) {
-  const changeColor =
-    stock.changePercent >= 0 ? "text-healthy" : "text-critical";
+  const changePercent = stock.changePercent ?? 0;
+  const changeColor = changePercent >= 0 ? "text-healthy" : "text-critical";
 
   return (
     <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up">
@@ -38,10 +38,12 @@ function PreStockCard({ stock }: { stock: PreStock }) {
       </div>
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-2xl font-mono font-bold">${stock.currentPrice.toFixed(2)}</div>
+          <div className="text-2xl font-mono font-bold">
+            ${typeof stock.currentPrice === 'number' ? stock.currentPrice.toFixed(2) : 'N/A'}
+          </div>
           <div className={`text-xs font-mono ${changeColor}`}>
-            {stock.changePercent >= 0 ? "+" : ""}
-            {stock.changePercent.toFixed(2)}%
+            {changePercent >= 0 ? "+" : ""}
+            {typeof stock.changePercent === 'number' ? stock.changePercent.toFixed(2) + "%" : "N/A"}
           </div>
         </div>
         {stock.ipoDate && (
@@ -77,12 +79,16 @@ function TesseraCard({ token }: { token: TesseraToken }) {
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-white/5 rounded-lg p-3">
           <div className="text-xs text-text-muted font-mono">Price</div>
-          <div className="text-lg font-mono font-bold">${token.currentPrice.toFixed(2)}</div>
+          <div className="text-lg font-mono font-bold">
+            ${typeof token.currentPrice === 'number' ? token.currentPrice.toFixed(2) : 'N/A'}
+          </div>
         </div>
         <div className="bg-white/5 rounded-lg p-3">
           <div className="text-xs text-text-muted font-mono">Market Cap</div>
           <div className="text-lg font-mono font-bold">
-            ${token.marketCap >= 1e6 ? `${(token.marketCap / 1e6).toFixed(1)}M` : token.marketCap.toLocaleString()}
+            {typeof token.marketCap === 'number'
+              ? `$${token.marketCap >= 1e6 ? (token.marketCap / 1e6).toFixed(1) + 'M' : token.marketCap.toLocaleString()}`
+              : 'N/A'}
           </div>
         </div>
       </div>
@@ -102,7 +108,7 @@ export default async function PreIPOPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
       <div className="mb-8 animate-fade-in-up">
         <Link
           href="/dashboard"
@@ -132,8 +138,8 @@ export default async function PreIPOPage() {
         </div>
         {preStocks.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {preStocks.map((stock) => (
-              <PreStockCard key={stock.id} stock={stock} />
+            {preStocks.map((stock, index) => (
+              <PreStockCard key={stock.ticker || stock.id || index} stock={stock} />
             ))}
           </div>
         ) : (
@@ -155,8 +161,8 @@ export default async function PreIPOPage() {
         </div>
         {tesseraTokens.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tesseraTokens.map((token) => (
-              <TesseraCard key={token.id} token={token} />
+            {tesseraTokens.map((token, index) => (
+              <TesseraCard key={token.ticker || token.id || index} token={token} />
             ))}
           </div>
         ) : (

@@ -1,12 +1,12 @@
-"use client";
+content = """\"use client\";
 
 import { useRef, useEffect } from "react";
 import { Terminal, Copy, CheckCircle2 } from "lucide-react";
 
 function CodeSnippet({ title, code, language = "json" }: { title: string; code: string; language?: string }) {
   return (
-    <div className="bg-black/40 text-gray-300 rounded-xl overflow-hidden border border-white/10 shadow-sm mt-4">
-      <div className="flex items-center justify-between px-4 py-2 bg-black/60 border-b border-white/10">
+    <div className="bg-[#111111] text-gray-300 rounded-xl overflow-hidden border border-black/10 shadow-sm mt-4">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#1a1a1a] border-b border-white/10">
         <span className="text-xs font-mono text-gray-400">{title}</span>
         <button className="text-gray-500 hover:text-white transition-colors">
           <Copy className="w-3.5 h-3.5" />
@@ -42,15 +42,15 @@ function ApiEndpointDetail({
   };
 
   return (
-    <div className="bg-surface border border-white/10 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow mb-8 animate-fade-in-up">
+    <div className="bg-surface border border-black/5 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow mb-8 animate-fade-in-up">
       <div className="flex flex-col lg:flex-row lg:items-start gap-12">
         {/* Info Column */}
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-3">{title}</h3>
           <p className="text-text-muted mb-6 leading-relaxed text-lg">{description}</p>
           
-          <div className="inline-flex items-center gap-3 bg-white/5 rounded-lg p-1.5 pr-4 mb-8">
-            <span className={`px-3 py-1 text-xs font-mono font-bold rounded-md border ${methodColors[method] || "bg-white/10 text-text border-white/20"}`}>
+          <div className="inline-flex items-center gap-3 bg-black/5 rounded-lg p-1.5 pr-4 mb-8">
+            <span className={`px-3 py-1 text-xs font-mono font-bold rounded-md border ${methodColors[method] || "bg-black/10 text-text border-black/20"}`}>
               {method}
             </span>
             <code className="text-sm font-mono text-text">{path}</code>
@@ -59,7 +59,7 @@ function ApiEndpointDetail({
           {params && params.length > 0 && (
             <div className="mb-6">
               <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted mb-4">Parameters</h4>
-              <div className="divide-y divide-white/10 border-t border-b border-white/10">
+              <div className="divide-y divide-black/5 border-t border-b border-black/5">
                 {params.map((p, i) => (
                   <div key={i} className="py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
                     <div className="flex items-center gap-3 min-w-[140px]">
@@ -88,8 +88,8 @@ export default function DevelopersPage() {
   return (
     <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-16 perspective">
       {/* Header */}
-      <div className="mb-20 animate-fade-in-up border-b border-white/10 pb-16">
-        <div className="inline-flex items-center gap-2 bg-white/5 rounded-full px-4 py-1.5 mb-8">
+      <div className="mb-20 animate-fade-in-up border-b border-black/5 pb-16">
+        <div className="inline-flex items-center gap-2 bg-black/5 rounded-full px-4 py-1.5 mb-8">
           <Terminal className="w-4 h-4 text-text-muted" />
           <span className="text-xs font-mono font-medium text-text-muted uppercase tracking-widest">API Documentation</span>
         </div>
@@ -188,3 +188,6 @@ export default function DevelopersPage() {
     </div>
   );
 }
+"""
+with open("app/app/developers/page.tsx", "w") as f:
+    f.write(content)

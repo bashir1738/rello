@@ -22,7 +22,7 @@ function StatCard({ label, value, sub, color, delay }: { label: string; value: s
 
 function InfoRow({ label, value, mono = true }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
+    <div className="flex justify-between items-center py-2 border-b border-white/10 last:border-0">
       <span className="text-sm text-text-muted">{label}</span>
       <span className={`text-sm ${mono ? "font-mono" : ""} text-text`}>{value}</span>
     </div>
@@ -40,7 +40,7 @@ export default async function AssetDetailPage({
 
   if (!asset) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-16 text-center animate-fade-in-up">
+      <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
         <h1 className="text-2xl font-bold mb-4">Asset Not Found</h1>
         <p className="text-text-muted mb-6">No configuration found for &quot;{symbol}&quot;.</p>
         <Link href="/dashboard" className="btn-3d inline-flex items-center px-5 py-2.5 bg-brand text-white rounded-lg text-sm font-medium">
@@ -83,7 +83,7 @@ export default async function AssetDetailPage({
     status === "warning" ? "Drifting" : "Critical";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 py-8 perspective">
       {/* Back link */}
       <div className="mb-6 animate-fade-in-up">
         <Link href="/dashboard" className="nav-link-3d text-sm text-text-muted inline-flex items-center gap-1.5">

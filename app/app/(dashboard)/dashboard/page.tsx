@@ -59,7 +59,7 @@ export default async function DashboardPage() {
   const criticalCount = assets.filter((a) => a.status === "critical").length;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-8 animate-fade-in-up">
         <div>

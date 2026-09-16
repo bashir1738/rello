@@ -33,7 +33,7 @@ function EventRow({ event, index }: { event: AgentEvent; index: number }) {
   return (
     <tr
       ref={ref}
-      className="border-b border-white/5 hover:bg-white/[0.03] transition-all duration-200 group"
+      className="border-b border-black/5 hover:bg-white/[0.03] transition-all duration-200 group"
     >
       <td className="px-6 py-4 text-sm font-mono text-text-muted">
         {new Date(event.timestamp).toLocaleTimeString()}
@@ -57,7 +57,7 @@ function EventRow({ event, index }: { event: AgentEvent; index: number }) {
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
           event.action_type === "executed" ? "bg-healthy/15 text-healthy" :
           event.action_type === "recommended" ? "bg-warning/15 text-warning" :
-          "bg-white/10 text-text-muted"
+          "bg-black/10 text-text-muted"
         }`}>
           {event.action_type}
         </span>
@@ -83,7 +83,7 @@ function EventRow({ event, index }: { event: AgentEvent; index: number }) {
 export default function ActivityLog({ events }: { events: AgentEvent[] }) {
   if (events.length === 0) {
     return (
-      <div className="bg-surface border border-white/10 rounded-xl p-12 text-center animate-fade-in-up">
+      <div className="bg-surface border border-black/5 rounded-xl p-12 text-center animate-fade-in-up">
         <div className="text-text-muted text-sm">
           No agent activity yet. The agent will log actions here when it detects
           drift conditions.
@@ -93,10 +93,10 @@ export default function ActivityLog({ events }: { events: AgentEvent[] }) {
   }
 
   return (
-    <div className="bg-surface border border-white/10 rounded-xl overflow-hidden animate-fade-in-up">
+    <div className="bg-surface border border-black/5 rounded-xl overflow-hidden animate-fade-in-up">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-white/10 text-left text-xs text-text-muted uppercase tracking-wider">
+          <tr className="border-b border-black/5 text-left text-xs text-text-muted uppercase tracking-wider">
             <th className="px-6 py-3">Time</th>
             <th className="px-6 py-3">Asset</th>
             <th className="px-6 py-3 text-right">Reference</th>

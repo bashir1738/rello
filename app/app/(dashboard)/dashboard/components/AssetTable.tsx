@@ -21,7 +21,7 @@ function HealthBadge({ status }: { status: string }) {
     warning: "bg-warning/15 text-warning border border-warning/20",
     critical: "bg-critical/15 text-critical border border-critical/20",
     reference_stale: "bg-warning/15 text-warning border border-warning/20",
-    no_data: "bg-white/10 text-text-muted border border-white/10",
+    no_data: "bg-black/10 text-text-muted border border-black/5",
     error: "bg-critical/15 text-critical border border-critical/20",
   };
 
@@ -69,7 +69,7 @@ function TableRow({ asset, index }: { asset: Asset; index: number }) {
   return (
     <tr
       ref={ref}
-      className="border-b border-white/5 hover:bg-white/[0.03] transition-all duration-200 group"
+      className="border-b border-black/5 hover:bg-white/[0.03] transition-all duration-200 group"
     >
       <td className="px-6 py-4">
         <Link href={`/asset/${asset.symbol}`} className="flex items-center gap-3 group/link">
@@ -99,7 +99,7 @@ function TableRow({ asset, index }: { asset: Asset; index: number }) {
       </td>
       <td className="px-6 py-4 text-center">
         <div className="inline-flex items-center gap-3">
-          <div className="h-2.5 w-24 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-2.5 w-24 bg-black/10 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-700 ${
                 asset.healthScore >= 60 ? "bg-healthy" :
@@ -123,10 +123,10 @@ function TableRow({ asset, index }: { asset: Asset; index: number }) {
 
 export default function AssetTable({ assets }: { assets: Asset[] }) {
   return (
-    <div className="bg-surface border border-white/10 rounded-xl overflow-hidden animate-fade-in-up">
+    <div className="bg-surface border border-black/5 rounded-xl overflow-hidden animate-fade-in-up">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-white/10 text-left text-xs text-text-muted uppercase tracking-wider">
+          <tr className="border-b border-black/5 text-left text-xs text-text-muted uppercase tracking-wider">
             <th className="px-6 py-3">Asset</th>
             <th className="px-6 py-3 text-right">Reference</th>
             <th className="px-6 py-3 text-right">Wrapped</th>

@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b; /* Very dark slate/black */
-  --surface: #111115; /* Dark surface */
-  --brand: #ff00ff; /* Neon Magenta */
-  --data: #00ffff; /* Neon Cyan */
-  --healthy: #39ff14; /* Neon Green */
-  --warning: #fce803; /* Neon Yellow */
-  --critical: #ff003c; /* Cyberpunk Red */
-  --text: #f0f0f0;
-  --text-muted: #888899;
+  --background: #000000; /* Solana Black */
+  --surface: #0a0a0a; /* Dark gray */
+  --brand: #14F195; /* Solana Green */
+  --data: #9945FF; /* Solana Purple */
+  --healthy: #14F195; /* Solana Green */
+  --warning: #ffb800; /* Yellow/Orange */
+  --critical: #ff3b30; /* Red */
+  --text: #ffffff; /* White text */
+  --text-muted: #888888; /* Gray text */
 }
 
 @theme inline {
@@ -28,9 +28,6 @@
 
 body {
   background: var(--background);
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(108, 93, 255, 0.06), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0, 229, 199, 0.04), transparent);
   color: var(--text);
 }
 
@@ -39,15 +36,17 @@ body {
   perspective: 1200px;
 }
 
-/* ── Card 3D tilt on hover ── */
+/* ── Card hover lift ── */
 .card-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 1.5rem; /* Large rounded corners like Apple */
 }
 .card-3d:hover {
-  transform: rotateY(-2deg) rotateX(2deg) translateZ(8px);
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.1);
-  border-color: rgba(255, 0, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* ── Float animation ── */
@@ -158,8 +157,8 @@ body {
 
 /* ── Pulse glow (subtle, no blur) ── */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0); }
-  50% { box-shadow: 0 0 20px 4px rgba(255, 0, 255, 0.4); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1); }
 }
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
@@ -167,10 +166,10 @@ body {
 
 /* ── Border rotate (for cards) ── */
 @keyframes border-shift {
-  0% { border-color: rgba(255, 0, 255, 0.5); box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
-  33% { border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 0 10px rgba(0, 255, 255, 0.2); }
-  66% { border-color: rgba(252, 232, 3, 0.5); box-shadow: 0 0 10px rgba(252, 232, 3, 0.2); }
-  100% { border-color: rgba(255, 0, 255, 0.5); box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
+  0% { border-color: rgba(0, 113, 227, 0.1); box-shadow: none; }
+  33% { border-color: rgba(52, 199, 89, 0.1); box-shadow: none; }
+  66% { border-color: rgba(255, 159, 10, 0.1); box-shadow: none; }
+  100% { border-color: rgba(0, 113, 227, 0.1); box-shadow: none; }
 }
 .animate-border-shift {
   animation: border-shift 6s ease-in-out infinite;
@@ -201,18 +200,18 @@ body {
   color: var(--text);
 }
 
-/* ── Button 3D press ── */
+/* ── Button minimal press ── */
 .btn-3d {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  border-radius: 9999px; /* Pill shape like Apple */
 }
 .btn-3d:hover {
-  transform: translateY(-2px) translateZ(4px);
-  box-shadow: 0 4px 12px rgba(108, 93, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2); /* Apple blue shadow */
 }
 .btn-3d:active {
-  transform: translateY(1px) translateZ(-2px);
-  box-shadow: 0 1px 4px rgba(108, 93, 255, 0.15);
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 113, 227, 0.1);
 }
 
 /* ── Icon 3D spin on hover ── */
@@ -263,10 +262,10 @@ body {
 
 /* ── Glassmorphism card ── */
 .glass {
-  background: rgba(19, 24, 38, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ── Glow ring on focus ── */
@@ -297,10 +296,10 @@ body {
 
 /* ── Subtle text glow ── */
 .text-glow-brand {
-  text-shadow: 0 0 20px rgba(108, 93, 255, 0.3);
+  text-shadow: none;
 }
 .text-glow-data {
-  text-shadow: 0 0 20px rgba(0, 229, 199, 0.3);
+  text-shadow: none;
 }
 
 /* ── Card hover lift ── */
@@ -334,6 +333,6 @@ body {
   transform: translateX(-50%);
   width: 200px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.8), transparent);
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+  box-shadow: none;
 }

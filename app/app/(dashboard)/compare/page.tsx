@@ -65,7 +65,7 @@ async function fetchFeedComparison(): Promise<FeedData[]> {
 
 function FeedCard({ feed, index }: { feed: FeedData; index: number }) {
   const sourceColors: Record<string, string> = {
-    equity: "text-brand border-brand/30",
+    equity: "text-brand border-white/10",
     xstock: "text-data border-data/30",
     ondo: "text-warning border-warning/30",
   };
@@ -182,7 +182,7 @@ export default async function ComparePage() {
   const feeds = await fetchFeedComparison();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+    <div className="w-full max-w-[1536px] mx-auto px-4 md:px-8 py-8 perspective">
       <div className="mb-8 animate-fade-in-up">
         <Link
           href="/dashboard"
