@@ -81,21 +81,28 @@ export default async function DashboardPage() {
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-surface border border-white/10 rounded-xl p-4 card-3d animate-fade-in-up delay-1">
-          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-1">Total Assets</div>
-          <div className="text-2xl font-mono font-bold text-text">{totalAssets}</div>
+        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up delay-1 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand" />
+          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-2">Total Assets</div>
+          <div className="text-3xl font-mono font-bold text-text">{totalAssets}</div>
         </div>
-        <div className="bg-surface border border-white/10 rounded-xl p-4 card-3d animate-fade-in-up delay-2">
-          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-1">Healthy</div>
-          <div className="text-2xl font-mono font-bold text-healthy">{healthyCount}</div>
+        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up delay-2 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-healthy" />
+          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-2">Healthy</div>
+          <div className="text-3xl font-mono font-bold text-healthy">{healthyCount}</div>
+          <div className="text-xs text-text-muted mt-1 font-mono">pegged within threshold</div>
         </div>
-        <div className="bg-surface border border-white/10 rounded-xl p-4 card-3d animate-fade-in-up delay-3">
-          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-1">Warning</div>
-          <div className="text-2xl font-mono font-bold text-warning">{warningCount}</div>
+        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up delay-3 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-warning" />
+          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-2">Warning</div>
+          <div className="text-3xl font-mono font-bold text-warning">{warningCount}</div>
+          <div className="text-xs text-text-muted mt-1 font-mono">drifting or stale</div>
         </div>
-        <div className="bg-surface border border-white/10 rounded-xl p-4 card-3d animate-fade-in-up delay-4">
-          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-1">Critical</div>
-          <div className="text-2xl font-mono font-bold text-critical">{criticalCount}</div>
+        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up delay-4 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-critical" />
+          <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-2">Critical</div>
+          <div className="text-3xl font-mono font-bold text-critical">{criticalCount}</div>
+          <div className="text-xs text-text-muted mt-1 font-mono">requires action</div>
         </div>
       </div>
 

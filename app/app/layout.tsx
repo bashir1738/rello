@@ -42,12 +42,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <div className="flex items-center gap-1 perspective">
                 {[
                   { href: "/dashboard", label: "Dashboard" },
-                  { href: "/compare", label: "Feeds" },
                   { href: "/trade", label: "Trade" },
-                  { href: "/pools", label: "Pools" },
-                  { href: "/pre-ipo", label: "Pre-IPO" },
+                  { href: "/compare", label: "Feeds" },
                   { href: "/activity", label: "Activity" },
-                  { href: "/developers", label: "API" },
                 ].map((link) => (
                   <a
                     key={link.href}
@@ -57,6 +54,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                     {link.label}
                   </a>
                 ))}
+                <div className="w-px h-4 bg-white/10 mx-1" />
+                <a
+                  href="/developers"
+                  className="nav-link-3d text-text-muted text-xs px-2 py-1.5 rounded-md hover:bg-white/5 font-mono"
+                >
+                  API
+                </a>
               </div>
             </div>
           </div>

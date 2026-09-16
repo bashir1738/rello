@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0B0F1A;
-  --surface: #131826;
-  --brand: #6C5DFF;
-  --data: #00E5C7;
-  --healthy: #00D084;
-  --warning: #FFB020;
-  --critical: #FF5C5C;
-  --text: #F2F4F8;
-  --text-muted: #8B93A7;
+  --background: #09090b; /* Very dark slate/black */
+  --surface: #111115; /* Dark surface */
+  --brand: #ff00ff; /* Neon Magenta */
+  --data: #00ffff; /* Neon Cyan */
+  --healthy: #39ff14; /* Neon Green */
+  --warning: #fce803; /* Neon Yellow */
+  --critical: #ff003c; /* Cyberpunk Red */
+  --text: #f0f0f0;
+  --text-muted: #888899;
 }
 
 @theme inline {
@@ -28,6 +28,9 @@
 
 body {
   background: var(--background);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(108, 93, 255, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0, 229, 199, 0.04), transparent);
   color: var(--text);
 }
 
@@ -39,11 +42,12 @@ body {
 /* ── Card 3D tilt on hover ── */
 .card-3d {
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s ease;
 }
 .card-3d:hover {
   transform: rotateY(-2deg) rotateX(2deg) translateZ(8px);
-  box-shadow: 8px 8px 0 rgba(108, 93, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.1);
+  border-color: rgba(255, 0, 255, 0.5);
 }
 
 /* ── Float animation ── */
@@ -154,8 +158,8 @@ body {
 
 /* ── Pulse glow (subtle, no blur) ── */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(108, 93, 255, 0); }
-  50% { box-shadow: 0 0 0 4px rgba(108, 93, 255, 0.1); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(255, 0, 255, 0.4); }
 }
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
@@ -163,10 +167,10 @@ body {
 
 /* ── Border rotate (for cards) ── */
 @keyframes border-shift {
-  0% { border-color: rgba(108, 93, 255, 0.2); }
-  33% { border-color: rgba(0, 229, 199, 0.2); }
-  66% { border-color: rgba(255, 176, 32, 0.2); }
-  100% { border-color: rgba(108, 93, 255, 0.2); }
+  0% { border-color: rgba(255, 0, 255, 0.5); box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
+  33% { border-color: rgba(0, 255, 255, 0.5); box-shadow: 0 0 10px rgba(0, 255, 255, 0.2); }
+  66% { border-color: rgba(252, 232, 3, 0.5); box-shadow: 0 0 10px rgba(252, 232, 3, 0.2); }
+  100% { border-color: rgba(255, 0, 255, 0.5); box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
 }
 .animate-border-shift {
   animation: border-shift 6s ease-in-out infinite;
@@ -330,5 +334,6 @@ body {
   transform: translateX(-50%);
   width: 200px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(108, 93, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.8), transparent);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }

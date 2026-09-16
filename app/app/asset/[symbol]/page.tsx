@@ -123,16 +123,20 @@ export default async function AssetDetailPage({
           }
           delay={0.3}
         />
-        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+        <div className="bg-surface border border-white/10 rounded-xl p-5 card-3d animate-fade-in-up relative overflow-hidden" style={{ animationDelay: "0.4s" }}>
+          <div className={`absolute left-0 top-0 bottom-0 w-1 ${
+            health.healthScore >= 60 ? "bg-healthy" :
+            health.healthScore >= 30 ? "bg-warning" : "bg-critical"
+          }`} />
           <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-2">Health Score</div>
           <div className="flex items-end gap-2">
-            <div className={`text-2xl font-mono font-bold ${
+            <div className={`text-3xl font-mono font-bold ${
               health.healthScore >= 60 ? "text-healthy" :
               health.healthScore >= 30 ? "text-warning" : "text-critical"
             }`}>{health.healthScore}</div>
-            <div className="text-xs text-text-muted mb-0.5">/100</div>
+            <div className="text-xs text-text-muted mb-1">/100</div>
           </div>
-          <div className="mt-3 h-2 w-full bg-white/10 rounded-full overflow-hidden">
+          <div className="mt-3 h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-1000 ease-out ${
                 health.healthScore >= 60 ? "bg-healthy" :

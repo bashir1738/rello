@@ -148,12 +148,12 @@ function FlowDiagram() {
       <polygon points="610,96 618,100 610,104" fill="#FFB020" />
 
       <rect x="618" y="60" width="140" height="80" rx="8" fill="#131826" stroke="#FF5C5C" strokeWidth="1.5" />
-      <text x="688" y="90" textAnchor="middle" fill="#FF5C5C" fontSize="11" fontFamily="monospace" fontWeight="600">METEORA DLMM</text>
+      <text x="688" y="90" textAnchor="middle" fill="#FF5C5C" fontSize="11" fontFamily="monospace" fontWeight="600">JUPITER SWAP</text>
       <text x="688" y="108" textAnchor="middle" fill="#8B93A7" fontSize="9" fontFamily="monospace">corrective swap</text>
       <text x="688" y="122" textAnchor="middle" fill="#00D084" fontSize="10" fontFamily="monospace" fontWeight="600">peg restored</text>
 
-      <rect x="412" y="155" width="140" height="40" rx="6" fill="#131826" stroke="#8B93A7" strokeWidth="1" strokeDasharray="3 3" />
-      <text x="482" y="180" textAnchor="middle" fill="#8B93A7" fontSize="9" fontFamily="monospace">Guard Program (Phase 3)</text>
+      <rect x="412" y="155" width="140" height="40" rx="6" fill="#131826" stroke="#6C5DFF" strokeWidth="1" />
+      <text x="482" y="180" textAnchor="middle" fill="#6C5DFF" fontSize="9" fontFamily="monospace">Guard Program (Anchor)</text>
       <line x1="482" y1="140" x2="482" y2="155" stroke="#8B93A7" strokeWidth="1" strokeDasharray="3 3" />
     </svg>
   );
