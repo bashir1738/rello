@@ -256,3 +256,79 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
   animation: shimmer 3s ease-in-out infinite;
 }
+
+/* ── Glassmorphism card ── */
+.glass {
+  background: rgba(19, 24, 38, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Glow ring on focus ── */
+.focus-glow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 93, 255, 0.4);
+}
+
+/* ── Progress bar shimmer ── */
+@keyframes progress-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.progress-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+/* ── Dot pulse (for live indicators) ── */
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+.animate-dot-pulse {
+  animation: dot-pulse 1.5s ease-in-out infinite;
+}
+
+/* ── Subtle text glow ── */
+.text-glow-brand {
+  text-shadow: 0 0 20px rgba(108, 93, 255, 0.3);
+}
+.text-glow-data {
+  text-shadow: 0 0 20px rgba(0, 229, 199, 0.3);
+}
+
+/* ── Card hover lift ── */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s cubic-bezier(0.23,1,0.32,1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px) translateZ(6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Staggered grid entrance ── */
+@keyframes grid-fade-in {
+  from { opacity: 0; transform: scale(0.95) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-grid-item {
+  animation: grid-fade-in 0.5s cubic-bezier(0.23,1,0.32,1) forwards;
+  opacity: 0;
+}
+
+/* ── Section divider glow ── */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(108, 93, 255, 0.3), transparent);
+}

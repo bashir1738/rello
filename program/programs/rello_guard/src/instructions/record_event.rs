@@ -8,7 +8,7 @@ pub struct RecordEvent<'info> {
     pub agent: Signer<'info>,
 }
 
-pub fn handler(
+pub(crate) fn handler(
     _ctx: Context<RecordEvent>,
     asset: Pubkey,
     reference_price: u64,

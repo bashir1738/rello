@@ -1,5 +1,6 @@
 import * as anchor from "@anchor-lang/core";
 import { Program } from "@anchor-lang/core";
+import { BN } from "bn.js";
 import { expect } from "chai";
 
 describe("rello_guard", () => {
@@ -21,14 +22,7 @@ describe("rello_guard", () => {
 
   it("Registers an asset", async () => {
     await program.methods
-      .registerAsset(
-        asset.publicKey,
-        referenceFeed.publicKey,
-        50,
-        new anchor.BN(1000),
-        50,
-        agent.publicKey
-      )
+      .registerAsset(50, new BN(1000), 50, agent.publicKey)
       .accounts({
         authority: authority.publicKey,
         assetConfig: configPda,
@@ -62,7 +56,7 @@ describe("rello_guard", () => {
 
   it("Updates max trade", async () => {
     await program.methods
-      .setMaxTrade(new anchor.BN(2000), 100)
+      .setMaxTrade(new BN(2000), 100)
       .accounts({
         authority: authority.publicKey,
         assetConfig: configPda,
@@ -100,7 +94,7 @@ describe("rello_guard", () => {
       .rpc();
 
     await program.methods
-      .checkAndAuthorize(asset.publicKey, 100, new anchor.BN(500))
+      .checkAndAuthorize(asset.publicKey, 100, new BN(500))
       .accounts({
         agent: testAgent.publicKey,
         assetConfig: configPda,
@@ -113,7 +107,7 @@ describe("rello_guard", () => {
     const unauthorized = anchor.web3.Keypair.generate();
     try {
       await program.methods
-        .checkAndAuthorize(asset.publicKey, 100, new anchor.BN(500))
+        .checkAndAuthorize(asset.publicKey, 100, new BN(500))
         .accounts({
           agent: unauthorized.publicKey,
           assetConfig: configPda,
@@ -139,7 +133,7 @@ describe("rello_guard", () => {
 
     try {
       await program.methods
-        .checkAndAuthorize(asset.publicKey, 10, new anchor.BN(500))
+        .checkAndAuthorize(asset.publicKey, 10, new BN(500))
         .accounts({
           agent: testAgent.publicKey,
           assetConfig: configPda,
@@ -165,7 +159,7 @@ describe("rello_guard", () => {
 
     try {
       await program.methods
-        .checkAndAuthorize(asset.publicKey, 100, new anchor.BN(99999))
+        .checkAndAuthorize(asset.publicKey, 100, new BN(99999))
         .accounts({
           agent: testAgent.publicKey,
           assetConfig: configPda,
@@ -182,10 +176,10 @@ describe("rello_guard", () => {
     const tx = await program.methods
       .recordEvent(
         asset.publicKey,
-        new anchor.BN(189840000),
-        new anchor.BN(187520000),
+        new BN(189840000),
+        new BN(187520000),
         123,
-        new anchor.BN(500)
+        new BN(500)
       )
       .accounts({
         agent: authority.publicKey,

@@ -16,7 +16,7 @@ pub struct SetAgent<'info> {
     pub asset_config: Account<'info, AssetConfig>,
 }
 
-pub fn handler(ctx: Context<SetAgent>, new_agent: Pubkey) -> Result<()> {
+pub(crate) fn handler(ctx: Context<SetAgent>, new_agent: Pubkey) -> Result<()> {
     let config = &mut ctx.accounts.asset_config;
     config.authorized_agent = new_agent;
 

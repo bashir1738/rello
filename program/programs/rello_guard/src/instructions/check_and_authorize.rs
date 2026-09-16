@@ -15,7 +15,7 @@ pub struct CheckAndAuthorize<'info> {
     pub asset_config: Account<'info, AssetConfig>,
 }
 
-pub fn handler(
+pub(crate) fn handler(
     ctx: Context<CheckAndAuthorize>,
     proposed_asset: Pubkey,
     proposed_deviation_bps: u16,

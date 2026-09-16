@@ -16,7 +16,7 @@ pub struct SetThreshold<'info> {
     pub asset_config: Account<'info, AssetConfig>,
 }
 
-pub fn handler(ctx: Context<SetThreshold>, new_threshold_bps: u16) -> Result<()> {
+pub(crate) fn handler(ctx: Context<SetThreshold>, new_threshold_bps: u16) -> Result<()> {
     let config = &mut ctx.accounts.asset_config;
     config.deviation_threshold_bps = new_threshold_bps;
 

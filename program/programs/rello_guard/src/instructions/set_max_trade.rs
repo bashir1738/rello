@@ -16,7 +16,7 @@ pub struct SetMaxTrade<'info> {
     pub asset_config: Account<'info, AssetConfig>,
 }
 
-pub fn handler(
+pub(crate) fn handler(
     ctx: Context<SetMaxTrade>,
     max_trade_amount: u64,
     max_slippage_bps: u16,

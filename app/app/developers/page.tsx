@@ -1,123 +1,136 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+
+function EndpointCard({ method, path, desc, delay }: { method: string; path: string; desc: string; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.opacity = "0";
+    el.style.transform = "translateY(12px) rotateX(2deg)";
+    const timer = setTimeout(() => {
+      el.style.transition = "transform 0.5s cubic-bezier(0.23,1,0.32,1), opacity 0.5s cubic-bezier(0.23,1,0.32,1)";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0) rotateX(0)";
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  const methodColors: Record<string, string> = {
+    GET: "bg-healthy/15 text-healthy",
+    POST: "bg-warning/15 text-warning",
+    PUT: "bg-brand/15 text-brand",
+    DELETE: "bg-critical/15 text-critical",
+  };
+
+  return (
+    <div ref={ref} className="bg-background rounded-lg p-4 card-3d group">
+      <div className="flex items-center gap-3 mb-2">
+        <span className={`px-2.5 py-0.5 text-xs font-mono font-bold rounded ${methodColors[method] ?? "bg-white/10 text-text"}`}>
+          {method}
+        </span>
+        <code className="text-sm font-mono text-text">{path}</code>
+      </div>
+      <p className="text-sm text-text-muted">{desc}</p>
+    </div>
+  );
+}
+
+function CodeBlock({ title, code, delay }: { title: string; code: string; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.opacity = "0";
+    el.style.transform = "perspective(600px) rotateX(3deg) translateY(12px)";
+    const timer = setTimeout(() => {
+      el.style.transition = "transform 0.6s cubic-bezier(0.23,1,0.32,1), opacity 0.6s cubic-bezier(0.23,1,0.32,1)";
+      el.style.opacity = "1";
+      el.style.transform = "perspective(600px) rotateX(0) translateY(0)";
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return (
+    <div ref={ref} className="bg-surface border border-white/10 rounded-xl overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-white/5">
+        <h3 className="text-sm font-bold">{title}</h3>
+        <div className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-critical/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-warning/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-healthy/60" />
+        </div>
+      </div>
+      <pre className="p-5 overflow-x-auto text-sm font-mono leading-relaxed">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 export default function DevelopersPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Developer API</h1>
-        <p className="text-text-muted text-sm mt-1">
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 perspective">
+      {/* Header */}
+      <div className="mb-10 animate-fade-in-up">
+        <h1 className="text-3xl font-bold mb-2">Developer API</h1>
+        <p className="text-text-muted">
           Integrate Rello&apos;s market integrity data into your applications.
         </p>
       </div>
 
       <div className="space-y-8">
-        <section className="bg-surface border border-white/10 rounded-xl p-6">
-          <h2 className="text-lg font-bold mb-4">Endpoints</h2>
-          <div className="space-y-4">
-            <div className="bg-background rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-0.5 bg-healthy/15 text-healthy text-xs font-mono rounded">
-                  GET
-                </span>
-                <code className="text-sm font-mono">/api/assets</code>
-              </div>
-              <p className="text-sm text-text-muted">
-                List all tracked assets with current health scores and drift
-                data.
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-0.5 bg-healthy/15 text-healthy text-xs font-mono rounded">
-                  GET
-                </span>
-                <code className="text-sm font-mono">
-                  /api/assets/[symbol]
-                </code>
-              </div>
-              <p className="text-sm text-text-muted">
-                Get detailed data for a specific asset including price history.
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-0.5 bg-healthy/15 text-healthy text-xs font-mono rounded">
-                  GET
-                </span>
-                <code className="text-sm font-mono">
-                  /api/assets/[symbol]/history?hours=24
-                </code>
-              </div>
-              <p className="text-sm text-text-muted">
-                Get historical snapshots for charting. Params:{" "}
-                <code className="text-xs bg-white/10 px-1 rounded">
-                  hours
-                </code>{" "}
-                (default 24),{" "}
-                <code className="text-xs bg-white/10 px-1 rounded">
-                  limit
-                </code>{" "}
-                (default 200).
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-0.5 bg-warning/15 text-warning text-xs font-mono rounded">
-                  POST
-                </span>
-                <code className="text-sm font-mono">/api/webhook</code>
-              </div>
-              <p className="text-sm text-text-muted">
-                Receive alert payloads and forward to Discord/Slack webhooks.
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-0.5 bg-healthy/15 text-healthy text-xs font-mono rounded">
-                  GET
-                </span>
-                <code className="text-sm font-mono">/api/cron/snapshot</code>
-              </div>
-              <p className="text-sm text-text-muted">
-                Trigger a snapshot capture for all tracked assets. Call via cron
-                or manually.
-              </p>
-            </div>
+        {/* Endpoints */}
+        <section className="animate-fade-in-up delay-1">
+          <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 text-brand"><path fillRule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v9A1.5 1.5 0 004.5 14h7a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0011.5 2h-7zM8 1a.5.5 0 01.5.5v2a.5.5 0 01-1 0v-2A.5.5 0 018 1zm0 8a.5.5 0 01.5.5v2a.5.5 0 01-1 0v-2A.5.5 0 018 9z" /></svg>
+            Endpoints
+          </h2>
+          <div className="space-y-3">
+            <EndpointCard method="GET" path="/api/assets" desc="List all tracked assets with current health scores and drift data." delay={100} />
+            <EndpointCard method="GET" path="/api/assets/[symbol]" desc="Get detailed data for a specific asset including price history." delay={150} />
+            <EndpointCard method="GET" path="/api/assets/[symbol]/history?hours=24" desc="Get historical snapshots for charting. Params: hours (default 24), limit (default 200)." delay={200} />
+            <EndpointCard method="POST" path="/api/webhook" desc="Receive alert payloads and forward to Discord/Slack webhooks." delay={250} />
+            <EndpointCard method="GET" path="/api/cron/snapshot" desc="Trigger a snapshot capture for all tracked assets. Call via cron or manually." delay={300} />
           </div>
         </section>
 
-        <section className="bg-surface border border-white/10 rounded-xl p-6">
-          <h2 className="text-lg font-bold mb-4">Sample Webhook Payload</h2>
-          <pre className="bg-background rounded-lg p-4 overflow-x-auto text-sm font-mono">
-            <code>{`{
+        {/* Webhook payload */}
+        <CodeBlock
+          title="Sample Webhook Payload"
+          delay={350}
+          code={`{
   "symbol": "AAPL",
   "action": "corrective_swap_recommended",
   "driftPct": -1.23,
   "referencePrice": 189.84,
   "wrappedPrice": 187.52,
   "timestamp": "2026-09-16T14:30:00.000Z"
-}`}</code>
-          </pre>
-        </section>
+}`}
+        />
 
-        <section className="bg-surface border border-white/10 rounded-xl p-6">
-          <h2 className="text-lg font-bold mb-4">
-            Agent Integration (Phase 2)
-          </h2>
-          <pre className="bg-background rounded-lg p-4 overflow-x-auto text-sm font-mono">
-            <code>{`// Subscribe to live drift updates
+        {/* Agent integration */}
+        <CodeBlock
+          title="Agent Integration (Phase 2)"
+          delay={400}
+          code={`// Subscribe to live drift updates
 const res = await fetch("https://your-domain.com/api/assets/AAPL");
 const { driftBps, healthScore, status } = await res.json();
 
 if (Math.abs(driftBps) > 50 && status !== "reference_stale") {
   // Threshold crossed — agent takes action
   console.log(\`Drift: \${driftBps}bps — initiating correction\`);
-}`}</code>
-          </pre>
-        </section>
+}`}
+        />
 
-        <section className="bg-surface border border-white/10 rounded-xl p-6">
-          <h2 className="text-lg font-bold mb-4">Architecture</h2>
-          <pre className="bg-background rounded-lg p-4 overflow-x-auto text-xs font-mono text-text-muted leading-relaxed">
-            <code>{`Pyth Core (on-chain accounts, permissionless)
+        {/* Architecture */}
+        <CodeBlock
+          title="Architecture"
+          delay={450}
+          code={`Pyth Core (on-chain accounts, permissionless)
     │
     ▼
 Rello Engine (Next.js API routes)
@@ -132,9 +145,8 @@ Rello Agent (standalone Node service)
     │     validates rules on-chain
     │
     ▼
-Meteora DBC Pool → Corrective swap → DAMM v2`}</code>
-          </pre>
-        </section>
+Meteora DBC Pool → Corrective swap → DAMM v2`}
+        />
       </div>
     </div>
   );

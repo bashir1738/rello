@@ -1,6 +1,7 @@
 {
   "name": "rello-guard",
   "license": "ISC",
+  "type": "module",
   "scripts": {
     "test": "anchor test",
     "build": "anchor build",

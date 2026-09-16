@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rello Dashboard
 
-## Getting Started
+Next.js 16 frontend for monitoring tokenized equity prices on Solana.
 
-First, run the development server:
+## Overview
+
+The dashboard reads Pyth price feeds on-chain, fetches snapshots from Supabase, calculates Peg Health Scores, and displays real-time drift monitoring with price charts.
+
+## Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Landing page with architecture diagram and feature overview |
+| `/dashboard` | Asset monitoring table with health scores and summary cards |
+| `/asset/[symbol]` | Per-asset detail: reference price, wrapped price, drift, chart |
+| `/activity` | Agent activity log with correction attempts and tx links |
+| `/developers` | API documentation with endpoint cards and code examples |
+
+## API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/assets` | List all tracked assets with live Pyth prices |
+| GET | `/api/assets/[symbol]` | Detailed single-asset data |
+| GET | `/api/assets/[symbol]/history` | Historical snapshots (`?hours=24&limit=100`) |
+| POST | `/api/webhook` | Receive alert payloads (Discord/Slack) |
+| GET | `/api/cron/snapshot` | Trigger snapshot capture (cron job) |
+
+## Library Modules
+
+| Module | Purpose |
+|--------|---------|
+| `lib/pyth.ts` | Direct on-chain Pyth Core price reader (binary decode) |
+| `lib/pyth-hermes.ts` | Hermes HTTP client for dashboard display |
+| `lib/scoring.ts` | Weighted Peg Health Score calculator (0-100) |
+| `lib/staleness.ts` | NYSE hours awareness, feed age checks |
+| `lib/supabase.ts` | Database CRUD helpers |
+| `lib/constants.ts` | Asset configuration (AAPL, thresholds) |
+
+## Database
+
+Schema at `supabase/schema.sql`:
+
+- **`asset_snapshots`** — Periodic price snapshots with drift and health scores
+- **`agent_events`** — Agent action log with tx signatures
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local
+# Fill in Supabase, Pyth, and Solana RPC credentials
+
+# Initialize database
+# Run supabase/schema.sql in Supabase SQL editor
+
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-service-role-key
+PYTH_API_KEY=your-pyth-api-key
+SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 (App Router, React 19)
+- Tailwind CSS v4
+- Recharts (price charts)
+- Supabase (database)
+- Pyth Network (price feeds)

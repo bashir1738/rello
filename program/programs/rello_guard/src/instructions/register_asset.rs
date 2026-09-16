@@ -29,7 +29,7 @@ pub struct RegisterAsset<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn handler(
+pub(crate) fn handler(
     ctx: Context<RegisterAsset>,
     deviation_threshold_bps: u16,
     max_trade_amount: u64,
